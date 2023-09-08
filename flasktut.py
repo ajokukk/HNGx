@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 from datetime import datetime, timedelta
+import requests
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
@@ -8,8 +10,12 @@ app = Flask(__name__)
 @app.route('/api', methods=['GET'])
 def get_info():
     # Get query parameters
-    slack_name = request.args.get('https://hngix.slack.com/archives/D05M0H214D9')
-    track = request.args.get('https://hngix.slack.com/archives/C05QJUWCJ6A')
+    slack_name = request.args.get('Love and')
+    #slack_name = requests.get('https://hngix.slack.com/archives/D05M0H214D9').text
+    track = request.args.get('track-Design')
+    #track = requests.get('https://hngix.slack.com/archives/C05QJUWCJ6A').text
+    #soup = BeautifulSoup(track, "html.parser")
+    #trackname = soup.findAll('#track-design')
 
     # Get the current day of the week
     current_day = datetime.utcnow().strftime('%A')
@@ -20,7 +26,7 @@ def get_info():
     current_time_str = current_utc_time.strftime('%Y-%m-%dT%H:%M:%SZ')
 
     # Construct GitHub URLs
-    github_file_url = "https://github.com/username/repo/blob/main/file_name.ext"
+    github_file_url = "https://github.com/ajokukk/HNGx/blob/main/flasktut.py"
     github_repo_url = "https://github.com/ajokukk/HNGx"
 
     # Response JSON
